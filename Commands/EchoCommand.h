@@ -5,7 +5,11 @@
 
 class EchoCommand : public Command {
 public:
-    void execute(const std::vector<Argument> &args) override;
+    using Command::Command;
+    void execute() override;
+    bool needsIstream() override;
 };
-
+inline bool EchoCommand::needsIstream() {
+    return true;
+}
 #endif

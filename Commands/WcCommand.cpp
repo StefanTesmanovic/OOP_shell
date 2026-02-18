@@ -1,50 +1,18 @@
 #include "WcCommand.h"
 #include <iostream>
 #include <string>
-#include <vector>
+#include <sstream>
 
-void WcCommand::execute(const std::vector<Argument>& args) {
-    std::string option;
-    Argument sourceArg;
-    bool hasSrc = false;
+void WcCommand::execute() {
+    std::stringstream buffer;
+    buffer << inputStream->rdbuf();
+    std::string textToProcess = buffer.str();
 
-    if (!args.empty()) {
-        if (!args[0].isQuoted && args[0].value[0] == '-') {
-            option = args[0].value;
-            if (args.size() > 1) {
-                sourceArg = args[1];
-                hasSrc = true;
-            }
-        } else { // ako nema opcije ispisuje se i broj reci i broj karaktera
-            sourceArg = args[0];
-            hasSrc = true;
-        }
-    }
-
-    std::string textToProcess;
-
-    if (hasSrc) {
-        auto stream = getInputStream(sourceArg);
-        if (stream) {
-            char c;
-            while (stream->get(c)) {
-                textToProcess += c;
-            }
-        } else {
-            printError("Nemoguce je otvoriti fajl: " + sourceArg.value);
-            return;
-        }
-    } else {
-        char c;
-        while (std::cin.get(c)) {
-            textToProcess += c;
-        }
-    }
-
-    processText(textToProcess, option);
+    int output = processText(textToProcess);
+    *outputStream << output;
 }
 
-void WcCommand::processText(const std::string& text, const std::string& option) {
+int WcCommand::processText(const std::string& text) {
     long words = 0;
     long chars = text.length();
     bool inWord = false;
@@ -58,11 +26,9 @@ void WcCommand::processText(const std::string& text, const std::string& option) 
         }
     }
 
-    if (option == "-w") {
-        std::cout << words << std::endl;
-    } else if (option == "-c") {
-        std::cout << chars << std::endl;
-    } else {
-        std::cout << words << " " << chars << std::endl;
+    if (opt == "w") {
+        return words;
+    } else if (opt == "c") {
+        return chars;
     }
 }

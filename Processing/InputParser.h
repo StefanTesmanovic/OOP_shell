@@ -9,11 +9,10 @@ struct Argument {
     std::string value;
     bool isQuoted;
 };
-//Napravljeno je da se svuda argumenti cuvaju kao lista za slucaj da u nekim komandama moze da ima vise argumenata i opcije su isto argumenti u implementaciji
 
 class InputParser {
 public:
-    static std::vector<Argument> parse(const std::string& line);
+    static std::vector<std::vector<Argument>> parse(const std::string& line);
 };
 
 #endif

@@ -14,6 +14,8 @@ add_executable(untitled main.cpp
         Commands/Command.h
         Commands/EchoCommand.cpp
         Commands/EchoCommand.h
+        Commands/Pipe.cpp
+        Commands/Pipe.h
         Commands/TimeCommand.cpp
         Commands/TimeCommand.h
         Commands/DateCommand.cpp

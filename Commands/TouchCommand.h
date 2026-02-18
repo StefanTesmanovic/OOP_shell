@@ -3,6 +3,12 @@
 #include "Command.h"
 class TouchCommand : public Command {
 public:
-    void execute(const std::vector<Argument> &args) override;
+    using Command::Command;
+    void execute() override;
+    bool needsIstream() override;
 };
+
+inline bool TouchCommand::needsIstream() {
+    return false;
+}
 #endif

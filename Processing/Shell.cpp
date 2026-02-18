@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdio>
 #include <limits>
+#include <sstream>
 Shell* Shell::instance = nullptr;
 
 Shell::Shell() : running(true), promptString("$") {}
@@ -17,10 +18,11 @@ Shell& Shell::getInstance() {
 
 void Shell::run() {
     const int MAX_CMD_LEN = 512;
-    char buffer[MAX_CMD_LEN + 1];
+    char buffer[MAX_CMD_LEN + 2];
 
     while (running) {
-        std::cout << promptString << " ";
+        //std::cout << "napravi da radi append\n";
+        std::cout << "\n" << promptString << " ";
         std::cout.flush();
 
         //ciscenje cin-a od flagova zbog funkcija wc i echo
@@ -40,7 +42,7 @@ void Shell::run() {
         }
 
         std::string line(buffer);
-
+        line += "\n";
         executeLine(line);
     }
 }
@@ -48,22 +50,28 @@ void Shell::run() {
 void Shell::executeLine(const std::string& line) {
     if (line.empty()) return;
 
-    std::vector<Argument> tokens = InputParser::parse(line);
-    if (tokens.empty()) return;
+    std::vector<std::vector<Argument>> args = InputParser::parse(line);
+    if (args.empty()) return;/*
+    for (auto t : args) {
+        int i = 0;
+        for (auto a : t) {
+            std::cout << i << ":" << a.value << "\n";
+            i++;
+        }
+    }*/
 
-    std::string cmdName = tokens[0].value;
-    std::vector<Argument> args;
-
-    if (tokens.size() > 1) {
-        args.assign(tokens.begin() + 1, tokens.end());
-    }
 
     try {
-        std::unique_ptr<Command> cmd = CommandFactory::createCommand(cmdName);
+        std::unique_ptr<Command> cmd = CommandFactory::createCommand(args);
         if (cmd) {
-            cmd->execute(args);
+            if (cmd->streamIscin() && cmd->needsIstream()) {
+                std::stringstream buffer;
+                buffer << std::cin.rdbuf();
+                cmd->setIstream(std::make_shared<std::stringstream>(buffer.str()), "");
+            }
+            cmd->execute();
         } else {
-            std::cout << "Nepoznata komanda: " << cmdName << std::endl;
+            std::cout << "Nepoznata komanda: " << args[0][0].value << std::endl;
         }
     } catch (const std::exception& e) {
         std::cerr << "Greska: " << e.what() << std::endl;

@@ -6,10 +6,14 @@
 
 class WcCommand : public Command {
 public:
-    void execute(const std::vector<Argument>& args) override;
-
+    using Command::Command;
+    void execute() override;
+    bool needsIstream() override;
 private:
-    void processText(const std::string& text, const std::string& option);
+    int processText(const std::string& text);
 };
 
+inline bool WcCommand::needsIstream() {
+    return true;
+}
 #endif

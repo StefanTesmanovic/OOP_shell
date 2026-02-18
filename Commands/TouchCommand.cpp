@@ -1,13 +1,19 @@
 #include "TouchCommand.h"
 #include <fstream>
+#include <sstream>
 
-void TouchCommand::execute(const std::vector<Argument>& args) {
-    if (args.empty()) {
+void TouchCommand::execute() {
+    if (streamIscin()) {
         printError("Potrebno je ime za kreiranje fajla");
         return;
     }
-
-    std::string filename = args[0].value;
+    std:: string filename = istreamVal;
+    if (inputStream && !streamIscin()) {
+        std::stringstream buffer ;
+        buffer << inputStream->rdbuf();
+        if (!buffer.str().empty())
+            filename = buffer.str();
+    }
 
     std::ifstream check(filename);
     if (check.good()) {
@@ -17,7 +23,6 @@ void TouchCommand::execute(const std::vector<Argument>& args) {
     }
     check.close();
 
-    // 2. Kreiraj fajl
     std::ofstream file(filename);
     if (!file) {
         printError("Neuspesno kreiranje fajla: " + filename);
