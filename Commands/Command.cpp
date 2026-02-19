@@ -7,7 +7,7 @@ Command::Command(std::vector<std::vector<Argument>>& argsIn) { // args = [arg, o
     auto args = argsIn[0];
     args.erase(args.begin());
     auto arg = args[0];
-    if (arg.isQuoted) {
+    if (arg.isQuoted) { //quoted stvari idu u ss, sve ostalo ima vrednost istreamVal i stream ako je fajl
         inputStream =  std::make_shared<std::stringstream>(arg.value);
         istreamVal = arg.value;
     }else if (arg.value.empty()) {

@@ -18,7 +18,7 @@ public:
 
     void run();
     void executeLine(const std::string& line);
-    void setPrompt(const std::string& newPrompt);
+    void setPrompt(std::string newPrompt);
     void exitShell();
 };
 

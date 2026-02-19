@@ -79,7 +79,7 @@ void Shell::executeLine(const std::string& line) {
 
 }
 
-void Shell::setPrompt(const std::string& newPrompt) {
+void Shell::setPrompt(const std::string newPrompt) {
     promptString = newPrompt;
 }
 

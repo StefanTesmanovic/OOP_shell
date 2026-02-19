@@ -24,4 +24,10 @@ add_executable(untitled main.cpp
         Commands/TouchCommand.h
         Commands/WcCommand.cpp
         Commands/WcCommand.h
+        Commands/PromptCommand.cpp
+        Commands/PromptCommand.h
+        Commands/RmCommand.cpp
+        Commands/RmCommand.h
+        Commands/TruncateCommand.cpp
+        Commands/TruncateCommand.h
 )

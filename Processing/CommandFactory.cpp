@@ -1,13 +1,14 @@
 #include "CommandFactory.h"
-#include <algorithm>
-
 #include "../Commands/EchoCommand.h"
 #include "../Commands/Pipe.h"
 #include "../Commands/TimeCommand.h"
 #include "../Commands/DateCommand.h"
+#include "../Commands/PromptCommand.h"
 #include "../Commands/TouchCommand.h"
 #include "../Commands/WcCommand.h"
-#include "../Commands/WcCommand.h"
+#include "../Commands/PromptCommand.h"
+#include "../Commands/RmCommand.h"
+#include "../Commands/TruncateCommand.h"
 
 
 std::unique_ptr<Command> CommandFactory::createCommand(std::vector<std::vector<Argument>> argsIn) {
@@ -19,17 +20,22 @@ std::unique_ptr<Command> CommandFactory::createCommand(std::vector<std::vector<A
     }
     auto args = argsIn[0];
     std::string cmdName = args[0].value;
-    if (cmdName == "echo") {
+    if (cmdName == "echo")
         return std::unique_ptr<EchoCommand>(new EchoCommand(argsIn));
-    }else if (cmdName == "time") {
+    if (cmdName == "time")
         return std::unique_ptr<TimeCommand>(new TimeCommand(argsIn));
-    } else if (cmdName == "date") {
+    if (cmdName == "date")
         return std::unique_ptr<DateCommand>(new DateCommand(argsIn));
-    } else if (cmdName == "touch") {
+    if (cmdName == "touch")
         return std::unique_ptr<TouchCommand>(new TouchCommand(argsIn));
-    } else if (cmdName == "wc") {
+    if (cmdName == "wc")
         return std::unique_ptr<WcCommand> (new WcCommand(argsIn));
-    }
+    if (cmdName == "prompt")
+        return std::unique_ptr<PromptCommand> (new PromptCommand(argsIn));
+    if (cmdName == "rm")
+        return std::unique_ptr<RmCommand> (new RmCommand(argsIn));
+    if (cmdName == "tr")
+        return std::unique_ptr<TruncateCommand> (new TruncateCommand(argsIn));
     /*if (commandName == "echo") {
         return std::unique_ptr<EchoCommand>(new EchoCommand());
     }
