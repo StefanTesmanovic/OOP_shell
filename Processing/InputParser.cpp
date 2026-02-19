@@ -1,6 +1,9 @@
 #include "InputParser.h"
-#include <iostream>
 
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <sstream>
 std::vector<std::vector<Argument>> InputParser::parse(const std::string& line) {
     std::vector<std::vector<Argument>> args;
     Argument cmd("", false), arg("", false), ostream("", false), opt("", false);
@@ -52,8 +55,13 @@ std::vector<std::vector<Argument>> InputParser::parse(const std::string& line) {
                 }
                 if (istr) {
                     if (currentToken.empty()) continue;
-                    arg.value = currentToken;
-                    arg.isQuoted = false;
+                    std::stringstream buffer;
+                    buffer << "";
+                    auto rFile = std::make_shared<std::ifstream>(currentToken);
+                    if (rFile)
+                        buffer << rFile->rdbuf();
+                    arg.value = buffer.str();
+                    arg.isQuoted = true;
                     currentToken.clear();
                     istr = false;
                     goto pipe;
