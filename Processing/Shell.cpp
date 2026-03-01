@@ -51,14 +51,14 @@ void Shell::executeLine(const std::string& line) {
     if (line.empty()) return;
 
     std::vector<std::vector<Argument>> args = InputParser::parse(line);
-    if (args.empty()) return;/*
+    if (args.empty()) return;
     for (auto t : args) {
         int i = 0;
         for (auto a : t) {
             std::cout << i << ":" << a.value << "\n";
             i++;
         }
-    }*/
+    }
 
 
     try {

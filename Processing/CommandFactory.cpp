@@ -3,12 +3,15 @@
 #include "../Commands/Pipe.h"
 #include "../Commands/TimeCommand.h"
 #include "../Commands/DateCommand.h"
+#include "../Commands/HeadCommand.h"
 #include "../Commands/PromptCommand.h"
 #include "../Commands/TouchCommand.h"
 #include "../Commands/WcCommand.h"
 #include "../Commands/PromptCommand.h"
 #include "../Commands/RmCommand.h"
 #include "../Commands/TruncateCommand.h"
+#include "../Commands/TrCommand.h"
+#include "../Commands/HeadCommand.h"
 
 
 std::unique_ptr<Command> CommandFactory::createCommand(std::vector<std::vector<Argument>> argsIn) {
@@ -34,22 +37,12 @@ std::unique_ptr<Command> CommandFactory::createCommand(std::vector<std::vector<A
         return std::unique_ptr<PromptCommand> (new PromptCommand(argsIn));
     if (cmdName == "rm")
         return std::unique_ptr<RmCommand> (new RmCommand(argsIn));
-    if (cmdName == "tr")
+    if (cmdName == "truncate")
         return std::unique_ptr<TruncateCommand> (new TruncateCommand(argsIn));
-    /*if (commandName == "echo") {
-        return std::unique_ptr<EchoCommand>(new EchoCommand());
-    }
-    else if (commandName == "time") {
-        return std::unique_ptr<TimeCommand>(new TimeCommand());
-    }
-    else if (commandName == "date") {
-        return std::unique_ptr<DateCommand>(new DateCommand());
-    }
-    else if (commandName == "touch") {
-        return std::unique_ptr<TouchCommand>(new TouchCommand());
-    }
-    else if (commandName == "wc") {
-        return std::unique_ptr<WcCommand>(new WcCommand());
-    }*/
+    if (cmdName == "tr")
+        return std::unique_ptr<TrCommand> (new TrCommand(argsIn));
+    if (cmdName == "head")
+        return std::unique_ptr<HeadCommand> (new HeadCommand(argsIn));
+
     return nullptr;
 }
