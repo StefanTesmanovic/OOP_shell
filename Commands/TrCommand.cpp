@@ -7,7 +7,7 @@ void TrCommand::execute() {
     std::string textToProcess = buffer.str();
 
     std::string output = processText(textToProcess);
-    *outputStream << output;
+    *outputStream << output << "\n";
 }
 
 std::string TrCommand::processText(const std::string& text) {

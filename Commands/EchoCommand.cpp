@@ -6,8 +6,8 @@ void EchoCommand::execute() {
         if (inputStream->peek() == EOF) return;
         std::stringstream buffer;
         buffer << inputStream->rdbuf();
-        *outputStream << buffer.str();
-        ostreamVal = buffer.str();
+        *outputStream << buffer.str() + "\n";
+        ostreamVal = buffer.str() + ((!buffer.str().empty())?"\n":"");
     } else {
         printError("Fajl nije pronadjen: " + istreamVal);
     }

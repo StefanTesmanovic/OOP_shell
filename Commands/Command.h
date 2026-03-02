@@ -10,7 +10,7 @@
 class Command {
 public:
     virtual ~Command() = default;
-    Command(std::vector<std::vector<Argument>>& args);
+    Command(std::vector<std::vector<Argument>>& args, std::ostream& oStream = std::cout);
     virtual void execute() = 0;
     void setIstream(std::shared_ptr<std::istream>, std::string);
     bool streamIscin(); // vraca da li je cin input stream

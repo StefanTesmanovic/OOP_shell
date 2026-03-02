@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-Command::Command(std::vector<std::vector<Argument>>& argsIn) { // args = [arg, opt, ostream]
+Command::Command(std::vector<std::vector<Argument>>& argsIn, std::ostream& oStreamDef) { // args = [arg, opt, ostream]
     allArgs = argsIn;
     auto args = argsIn[0];
     args.erase(args.begin());
@@ -24,7 +24,7 @@ Command::Command(std::vector<std::vector<Argument>>& argsIn) { // args = [arg, o
     }
     auto ostream = args[2];
     if (ostream.value.empty()) {
-        outputStream.reset(&std::cout, [](std::ostream*){});
+        outputStream.reset(&oStreamDef, [](std::ostream*){});
         ostreamVal = "";
     }else {
         ostreamVal = ostream.value;

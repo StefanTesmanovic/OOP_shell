@@ -34,6 +34,7 @@ std::vector<std::vector<Argument>> InputParser::parse(const std::string& line) {
                 opt.value = currentToken;
                 currentToken.clear();
                 dash = false;
+
             } else {
                 currentToken += c;
                 continue;

@@ -1,1 +1,3 @@
-time: 21:20:27
+time
+echo "nigga" > fajl.txt
+time | tr -":" "..."

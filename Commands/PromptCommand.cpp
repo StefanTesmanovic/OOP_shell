@@ -9,4 +9,5 @@ void PromptCommand::execute() {
         return;
     }
     shell.setPrompt(istreamVal);
+    std::cout << "\n";
 }

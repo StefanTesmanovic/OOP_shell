@@ -7,5 +7,5 @@ void TimeCommand::execute() {
     char buf[100];
     std::strftime(buf, sizeof(buf), "%H:%M:%S", std::localtime(&now));
     std::string timeString(buf);
-    *outputStream << timeString;
+    *outputStream << timeString << "\n";
 }

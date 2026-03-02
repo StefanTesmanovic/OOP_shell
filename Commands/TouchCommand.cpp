@@ -18,14 +18,14 @@ void TouchCommand::execute() {
     std::ifstream check(filename);
     if (check.good()) {
         check.close();
-        printError("Zadati fajl vec postoji: " + filename);
+        printError("Zadati fajl vec postoji: " + filename + "\n");
         return;
     }
     check.close();
 
     std::ofstream file(filename);
     if (!file) {
-        printError("Neuspesno kreiranje fajla: " + filename);
+        printError("Neuspesno kreiranje fajla: " + filename + "\n");
     }
     file.close();
 }

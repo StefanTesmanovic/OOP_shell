@@ -8,8 +8,8 @@ void RmCommand::execute() {
     std::string filename = istreamVal;
     try {
         if (!fs::remove(filename))
-            *outputStream << "Fajl nije pronadjen";
+            *outputStream << "Fajl nije pronadjen\n";
     } catch (const fs::filesystem_error& e) {
-        std::cerr << "Greska pri brisanju fajla: " << e.what();
+        std::cerr << "Greska pri brisanju fajla: " << e.what() << "\n";
     }
 }

@@ -8,7 +8,7 @@ void Pipe::execute() {
     auto pipeOut = std::make_shared<std::stringstream>();
 
     for (int i = 0; i < allArgs.size(); i++) {
-        std::unique_ptr<Command> cmd = CommandFactory::createCommand(std::vector<std::vector<Argument>>{allArgs[i]});
+        std::unique_ptr<Command> cmd = CommandFactory::createCommand(std::vector<std::vector<Argument>>{allArgs[i]}, *outputStream);
         if (i != 0) {
             cmd->setIstream(pipeIn, isVal);
         }
