@@ -23,9 +23,13 @@ std::vector<std::vector<Argument>> InputParser::parse(const std::string& line) {
                 inQuotes = !inQuotes;
                 qCnt++;
                 currentToken += c;
+                if (qCnt == 2) {
+                    opt.value = currentToken;
+                    currentToken.clear();
+                }
                 if (qCnt == 4) {
                     dash = false;
-                    opt.value = currentToken;
+                    opt.value += currentToken;
                     currentToken.clear();
                 }
                 continue;

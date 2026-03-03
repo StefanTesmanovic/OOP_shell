@@ -9,7 +9,7 @@ void WcCommand::execute() {
     std::string textToProcess = buffer.str();
 
     int output = processText(textToProcess);
-    *outputStream << output + "\n";
+    *outputStream << output << "\n";
 }
 
 int WcCommand::processText(const std::string& text) {

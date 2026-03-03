@@ -50,7 +50,7 @@ void Shell::executeLine(const std::string& line, std::ostream& os) {
 
     std::vector<std::vector<Argument>> args = InputParser::parse(line);
     if (args.empty()) return;
-    /*
+/*
     std::cout << "\n";
     for (auto t : args) {
         int i = 0;

@@ -45,6 +45,5 @@ std::unique_ptr<Command> CommandFactory::createCommand(std::vector<std::vector<A
         return std::unique_ptr<HeadCommand> (new HeadCommand(argsIn, oStream));
     if (cmdName == "batch")
         return std::unique_ptr<BatchCommand> (new BatchCommand(argsIn, oStream));
-
     return nullptr;
 }
