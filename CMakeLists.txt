@@ -30,4 +30,12 @@ add_executable(untitled main.cpp
         Commands/RmCommand.h
         Commands/TruncateCommand.cpp
         Commands/TruncateCommand.h
+        Commands/TrCommand.cpp
+        Commands/TrCommand.h
+        Commands/HeadCommand.cpp
+        Commands/HeadCommand.h
+        Commands/BatchCommand.cpp
+        Commands/BatchCommand.h
+        Processing/CustomExceptions.h
+        Commands/NoArgumentCommand.h
 )

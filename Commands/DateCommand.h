@@ -1,9 +1,10 @@
 #ifndef DATECOMMAND_H
 #define DATECOMMAND_H
 #include "Command.h"
-class DateCommand : public Command {
+#include "NoArgumentCommand.h"
+class DateCommand : public NoArgumentCommand {
 public:
-    using Command::Command;
+    using NoArgumentCommand::NoArgumentCommand;
     void execute() override;
     bool needsIstream() override;
 };

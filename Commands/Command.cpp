@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-Command::Command(std::vector<std::vector<Argument>>& argsIn) { // args = [arg, opt, ostream]
+Command::Command(std::vector<std::vector<Argument>>& argsIn, std::ostream& oStreamDef) { // args = [arg, opt, ostream]
     allArgs = argsIn;
     auto args = argsIn[0];
     args.erase(args.begin());
@@ -12,6 +12,7 @@ Command::Command(std::vector<std::vector<Argument>>& argsIn) { // args = [arg, o
         istreamVal = arg.value;
     }else if (arg.value.empty()) {
         inputStream.reset(&std::cin, [](std::istream*){});
+        istreamVal = "";
     }else {
         auto file = std::make_shared<std::ifstream>(arg.value);
         if (file->is_open()) {
@@ -24,7 +25,7 @@ Command::Command(std::vector<std::vector<Argument>>& argsIn) { // args = [arg, o
     }
     auto ostream = args[2];
     if (ostream.value.empty()) {
-        outputStream.reset(&std::cout, [](std::ostream*){});
+        outputStream.reset(&oStreamDef, [](std::ostream*){});
         ostreamVal = "";
     }else {
         ostreamVal = ostream.value;
@@ -34,6 +35,7 @@ Command::Command(std::vector<std::vector<Argument>>& argsIn) { // args = [arg, o
             outputStream = std::make_shared<std::ofstream>(ostream.value);
     }
     opt = args[1].value;
+    optQuoted = args[1].isQuoted;
 }
 void Command::printError(const std::string& message) const {
     std::cerr << "Greska: " << message;
@@ -45,7 +47,7 @@ bool Command::streamIscin() {
 
 void Command::setIstream(std::shared_ptr<std::istream> istream, std::string istreamValue) {
      inputStream = istream;
-    istreamVal = istreamValue;
+     istreamVal = istreamValue;
 }
 std::string Command::getOsVal() {
     return ostreamVal;

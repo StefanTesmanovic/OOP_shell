@@ -1,5 +1,5 @@
 #include "InputParser.h"
-
+#include "CustomExceptions.h"
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -23,9 +23,13 @@ std::vector<std::vector<Argument>> InputParser::parse(const std::string& line) {
                 inQuotes = !inQuotes;
                 qCnt++;
                 currentToken += c;
+                if (qCnt == 2) {
+                    opt.value = currentToken;
+                    currentToken.clear();
+                }
                 if (qCnt == 4) {
                     dash = false;
-                    opt.value = currentToken;
+                    opt.value += currentToken;
                     currentToken.clear();
                 }
                 continue;
@@ -34,6 +38,7 @@ std::vector<std::vector<Argument>> InputParser::parse(const std::string& line) {
                 opt.value = currentToken;
                 currentToken.clear();
                 dash = false;
+
             } else {
                 currentToken += c;
                 continue;
@@ -54,6 +59,10 @@ std::vector<std::vector<Argument>> InputParser::parse(const std::string& line) {
                     goto pipe;
                 }
                 if (istr) {
+                    if (!arg.value.empty()) {
+                        throw RedirectionException();
+                        return {};
+                    }
                     if (currentToken.empty()) continue;
                     std::stringstream buffer;
                     buffer << "";
@@ -81,15 +90,15 @@ std::vector<std::vector<Argument>> InputParser::parse(const std::string& line) {
                     append = false;
                     goto pipe;
                 }
-                if (dash) {
+                if (dash) { //menjano je da li se cuva quoted za komandu
                     opt.value = currentToken;
-                    opt.isQuoted = quoted;
                     currentToken.clear();
                     quoted = false;
                     dash = false;
                     goto pipe;
                 }
                 if (!currentToken.empty() && currentToken.find_first_not_of(' ') != std::string::npos) {
+                    if (opt.value == "") opt.isQuoted = true;
                     arg.value = currentToken;
                     arg.isQuoted = quoted;
                     quoted = false;

@@ -7,7 +7,7 @@
 
 class CommandFactory {
 public:
-    static std::unique_ptr<Command> createCommand(std::vector<std::vector<Argument>> args);
+    static std::unique_ptr<Command> createCommand(std::vector<std::vector<Argument>> args, std::ostream& outStream = std::cout);
 };
 
 #endif

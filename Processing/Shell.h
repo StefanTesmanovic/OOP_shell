@@ -2,6 +2,7 @@
 #define SHELL_H
 
 #include <string>
+#include <iostream>
 
 class Shell {
 private:
@@ -17,7 +18,7 @@ public:
     static Shell& getInstance();
 
     void run();
-    void executeLine(const std::string& line);
+    void executeLine(const std::string& line, std::ostream& os = std::cout);
     void setPrompt(std::string newPrompt);
     void exitShell();
 };
