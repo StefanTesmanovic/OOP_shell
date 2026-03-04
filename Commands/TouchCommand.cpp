@@ -8,7 +8,7 @@ void TouchCommand::execute() {
         return;
     }
     std:: string filename = istreamVal;
-    if (inputStream && !streamIscin()) {
+    if (inputStream && !dynamic_pointer_cast<std::ifstream>(inputStream)) {
         std::stringstream buffer ;
         buffer << inputStream->rdbuf();
         if (!buffer.str().empty())
