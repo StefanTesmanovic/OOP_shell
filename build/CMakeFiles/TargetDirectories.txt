@@ -1,0 +1,3 @@
+/home/stesman/Documents/coding/ProjOOP/build/CMakeFiles/untitled.dir
+/home/stesman/Documents/coding/ProjOOP/build/CMakeFiles/edit_cache.dir
+/home/stesman/Documents/coding/ProjOOP/build/CMakeFiles/rebuild_cache.dir
