@@ -17,6 +17,7 @@ public:
     void setOstream(std::shared_ptr<std::ostream>);
     virtual bool needsIstream() = 0;
     std::string getOsVal();
+    bool optIsQuoted();
 protected:
     void printError(const std::string& message) const;
     std::shared_ptr<std::istream> inputStream; //Ovo je zapravo argument, moze biti fajl ili string
@@ -25,6 +26,10 @@ protected:
     std::string ostreamVal;
     std::string istreamVal;
     std::vector<std::vector<Argument>> allArgs;
+    bool optQuoted;                             //optQuoted je true kad je unesen argument pre opcije
 };
 
+inline bool Command::optIsQuoted() {
+    return optQuoted;
+}
 #endif

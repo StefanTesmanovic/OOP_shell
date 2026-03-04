@@ -5,6 +5,8 @@
 #include <cstdio>
 #include <limits>
 #include <sstream>
+#include <regex>
+#include <filesystem>
 Shell* Shell::instance = nullptr;
 
 Shell::Shell() : running(true), promptString("$") {}
@@ -42,15 +44,19 @@ void Shell::run() {
         std::string line(buffer);
         line += "\n";
         executeLine(line);
+        //std::cout << "\n";
     }
 }
 
 void Shell::executeLine(const std::string& line, std::ostream& os) {
     if (line.empty()) return;
-
-    std::vector<std::vector<Argument>> args = InputParser::parse(line);
+    std::string s = line;
+    s = std::regex_replace(s, std::regex("\\n+$"), "");
+    s+="\n";
+    try {
+    std::vector<std::vector<Argument>> args = InputParser::parse(s);
     if (args.empty()) return;
-/*
+    /*
     std::cout << "\n";
     for (auto t : args) {
         int i = 0;
@@ -61,20 +67,23 @@ void Shell::executeLine(const std::string& line, std::ostream& os) {
     }*/
 
 
-    try {
         std::unique_ptr<Command> cmd = CommandFactory::createCommand(args, os);
         if (cmd) {
             if (cmd->streamIscin() && cmd->needsIstream()) {
                 std::stringstream buffer;
                 buffer << std::cin.rdbuf();
+                std::cin.clear();
+                std::cout.flush();
+                clearerr(stdin);
                 cmd->setIstream(std::make_shared<std::stringstream>(buffer.str()), "");
             }
             cmd->execute();
-        } else {
-            std::cout << "Nepoznata komanda: " << args[0][0].value << std::endl;
         }
-    } catch (const std::exception& e) {
-        std::cerr << "Greska: " << e.what() << std::endl;
+    }catch (const std::filesystem::filesystem_error& e ) {
+        std::cout << "Error" << e.what() << "\n";
+    }
+    catch (const std::exception& e) {
+        std::cout << "Error: " << e.what() << "\n";
     }
 
 }

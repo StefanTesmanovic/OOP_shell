@@ -1,0 +1,24 @@
+echo "Hello World"
+echo testovi/input.txt
+echo "a"
+echo <testovi/hello.txt > out.txt
+echo <testovi/hello.txt >>out.txt
+prompt ?
+time
+date
+touch tout.txt
+touch tout.txt
+echo <<testovi/hello.txt > empty.txt
+truncate empty.txt
+touch temp.txt
+rm temp.txt
+wc -w testovi/input.txt
+wc -w
+wc -c
+tr -" "
+tr testovi/input.txt -"execute" "E"
+head -n1
+batch testovi/basic_commands.txt
+batch testovi/red_commands.txt >batch.out
+batch testovi/cmd_commands.txt
+

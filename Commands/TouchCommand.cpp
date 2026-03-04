@@ -4,7 +4,7 @@
 
 void TouchCommand::execute() {
     if (streamIscin()) {
-        printError("Potrebno je ime za kreiranje fajla");
+        printError("Potrebno je ime za kreiranje fajla \n");
         return;
     }
     std:: string filename = istreamVal;
@@ -18,7 +18,7 @@ void TouchCommand::execute() {
     std::ifstream check(filename);
     if (check.good()) {
         check.close();
-        printError("Zadati fajl vec postoji: " + filename + "\n");
+        printError("Zadati fajl vec postoji: " + filename  + "\n");
         return;
     }
     check.close();

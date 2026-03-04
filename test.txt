@@ -1,3 +1,0 @@
-time
-echo "nigga" > fajl.txt
-time | tr -":" "..."

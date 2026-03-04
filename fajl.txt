@@ -1,0 +1,46 @@
+/home/stesman/Documents/coding/OOP_shell/cmake-build-debug/untitled
+$ batch all.txt
+Hello World!
+A C++ program is a sequence of text files (typically header and source files) that contain declarations. They undergo translation to become an executable program, which is executed when the C++ implementation calls its main function.
+Hello world!
+How are you?
+Hello world!
+How are you?
+00:00:22
+04.03.2026.
+Greska: Zadati fajl vec postoji: tout.txt36
+Hello world!
+How are you?
+26
+Hello world!
+How are you?
+5
+Hello world!
+How are you?
+Helloworld!
+Howareyou?
+A C++ program is a sequence of text files (typically header and source files) that contain declarations. They undergo translation to become an Eable program, which is Eed when the C++ implementation calls its main function.
+Hello world!
+How are you?
+Hello world!
+Hello world!
+How are you?
+Hello world!
+How are you?
+27
+# ^C
+Process finished with exit code 130 (interrupted by signal 2:SIGINT)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

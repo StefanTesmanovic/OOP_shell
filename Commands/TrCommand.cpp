@@ -1,13 +1,14 @@
 #include "TrCommand.h"
 #include<sstream>
-
+#include<regex>
 void TrCommand::execute() {
     std::stringstream buffer;
     buffer << inputStream->rdbuf();
     std::string textToProcess = buffer.str();
 
     std::string output = processText(textToProcess);
-    *outputStream << output << "\n";
+    output = std::regex_replace(output, std::regex("\\n+$"), "");
+    *outputStream << output<< "\n";
 }
 
 std::string TrCommand::processText(const std::string& text) {

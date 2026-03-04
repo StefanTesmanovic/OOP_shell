@@ -1,9 +1,10 @@
 #ifndef TIMECOMMAND_H
 #define TIMECOMMAND_H
 #include "Command.h"
-class TimeCommand : public Command {
+#include "NoArgumentCommand.h"
+class TimeCommand : public NoArgumentCommand {
 public:
-    using Command::Command;
+    using NoArgumentCommand::NoArgumentCommand;
     void execute() override;
     bool needsIstream() override;
 };

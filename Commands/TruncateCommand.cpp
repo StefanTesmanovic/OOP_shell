@@ -5,7 +5,7 @@
 
 void TruncateCommand::execute() {
     if (!inputStream) {
-        printError("Fajl nije pronadjen: " + istreamVal + "\n");
+        printError("Fajl nije pronadjen: " + istreamVal);
         return;
     }
     if (!istreamVal.empty()) {
